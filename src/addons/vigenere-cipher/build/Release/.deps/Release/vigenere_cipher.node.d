@@ -1,0 +1,1 @@
+cmd_Release/vigenere_cipher.node := ln -f "Release/obj.target/vigenere_cipher.node" "Release/vigenere_cipher.node" 2>/dev/null || (rm -rf "Release/vigenere_cipher.node" && cp -af "Release/obj.target/vigenere_cipher.node" "Release/vigenere_cipher.node")

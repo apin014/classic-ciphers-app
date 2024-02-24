@@ -1,0 +1,9 @@
+{
+    "watch": ["src"],
+    "ext": "js",
+    "ignore": ["*.test.js"],
+    "delay": "3",
+    "execMap": {
+        "js": "babel-node"
+    }
+}
