@@ -1,0 +1,1 @@
+cmd_Release/obj.target/playfair_cipher.node := g++ -o Release/obj.target/playfair_cipher.node -shared -pthread -rdynamic -m64  -Wl,-soname=playfair_cipher.node -Wl,--start-group Release/obj.target/playfair_cipher/playfair-cipher.o Release/obj.target/playfair_cipher/../include/lookupAlphabet.o -Wl,--end-group 

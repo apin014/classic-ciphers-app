@@ -1,0 +1,1 @@
+cmd_Release/playfair_cipher.node := ln -f "Release/obj.target/playfair_cipher.node" "Release/playfair_cipher.node" 2>/dev/null || (rm -rf "Release/playfair_cipher.node" && cp -af "Release/obj.target/playfair_cipher.node" "Release/playfair_cipher.node")
