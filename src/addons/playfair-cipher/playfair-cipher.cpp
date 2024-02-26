@@ -26,6 +26,7 @@ NAN_METHOD(encrypt)
     if (!info[1]->IsString())
     {
         Nan::ThrowTypeError("The second argument should be a String");
+        return;
     }
 
     Nan::Utf8String plainText(info[0]);
