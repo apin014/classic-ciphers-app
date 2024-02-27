@@ -1,0 +1,1 @@
+cmd_Release/obj.target/extended_vigenere_cipher.node := g++ -o Release/obj.target/extended_vigenere_cipher.node -shared -pthread -rdynamic -m64  -Wl,-soname=extended_vigenere_cipher.node -Wl,--start-group Release/obj.target/extended_vigenere_cipher/extended-vigenere-cipher.o Release/obj.target/extended_vigenere_cipher/../include/lookupAlphabet.o -Wl,--end-group 
