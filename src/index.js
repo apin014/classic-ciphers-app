@@ -11,11 +11,11 @@ const __dirname = path.dirname(__filename)
 
 dotenv.config({path: __dirname + "/./../.env"})
 const app = express()
-const port = process.env.EXP_PORT || 5000
+const port = 3636
 
+app.use(cors())
 app.use(express.json())
 app.use([appRouter])
-app.use(cors)
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at Port:${port}`)

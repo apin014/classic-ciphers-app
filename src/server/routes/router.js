@@ -46,6 +46,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 appRouter.post("/vigenere/standard/text", (req, res, next) => {
+    // console.log(req)
     if (req.query.flavor == "encrypt") {
         vigenereEncryptText(req, res, next)
         return
@@ -57,7 +58,7 @@ appRouter.post("/vigenere/standard/text", (req, res, next) => {
     }
 })
 
-appRouter.post("/vigenere/standard/file", upload.single("uploadField"), (req, res, next) => {
+appRouter.post("/vigenere/standard/file", upload.single("file"), (req, res, next) => {
     // console.log(req)
     if (req.query.flavor == "encrypt") {
         vigenereEncryptFile(req, res, next)
@@ -79,7 +80,7 @@ appRouter.post("/vigenere/extended/text", (req, res, next) => {
     }
 })
 
-appRouter.post("/vigenere/extended/file", upload.single("uploadField"), (req, res, next) => {
+appRouter.post("/vigenere/extended/file", upload.single("file"), (req, res, next) => {
     // console.log(req)
     if (req.query.flavor == "encrypt") {
         extVigenereEncryptFile(req, res, next)
@@ -101,7 +102,7 @@ appRouter.post("/playfair/text", (req, res, next) => {
     }
 })
 
-appRouter.post("/playfair/file", upload.single("uploadField"), (req, res, next) => {
+appRouter.post("/playfair/file", upload.single("file"), (req, res, next) => {
     // console.log(req)
     if (req.query.flavor == "encrypt") {
         playfairEncryptFile(req, res, next)
@@ -112,6 +113,7 @@ appRouter.post("/playfair/file", upload.single("uploadField"), (req, res, next) 
 })
 
 appRouter.post("/product/text", (req, res, next) => {
+    console.log(req)
     if (req.query.flavor == "encrypt") {
         productEncryptText(req, res, next)
         return
@@ -123,7 +125,7 @@ appRouter.post("/product/text", (req, res, next) => {
     }
 })
 
-appRouter.post("/product/file", upload.single("uploadField"), (req, res, next) => {
+appRouter.post("/product/file", upload.single("file"), (req, res, next) => {
     // console.log(req)
     if (req.query.flavor == "encrypt") {
         productEncryptFile(req, res, next)

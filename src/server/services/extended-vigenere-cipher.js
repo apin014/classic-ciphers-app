@@ -18,14 +18,14 @@ const extended_vigenere_cipher = require("./../../addons/extended-vigenere-ciphe
 const signature = process.env.signature || "SIG"
 
 export const encryptText = async (req, res, next) => {
-    if (!req.body.plainText || !req.body.key) {
+    if (!req.body.text || !req.body.key) {
         res.status(400).send({
             message: "No plain text or key supplied!"
         })
         return
     }
 
-    let text = Buffer.from(req.body.plainText)
+    let text = Buffer.from(req.body.text)
     let key = req.body.key
 
     if (key.length > text.length) {
@@ -116,19 +116,20 @@ export const encryptFile = async (req, res, next) => {
     } else {
         fs.chmodSync(fileName, '444');
     }
-    await res.status(200).download(fileName)
+    res.attachment(fileName)
+    await res.status(200).sendFile(fileName)
 }
 
 export const decryptText = async (req, res, next) => {
-    if (!req.body.cipherText || !req.body.key) {
+    if (!req.body.text || !req.body.key) {
         res.status(400).send({
             message: "No cipher text or key supplied!"
         })
         return
     }
 
-    // let text = Buffer.from(req.body.cipherText, "base64").toString("utf-8")
-    let text = Buffer.from(req.body.cipherText)
+    // let text = Buffer.from(req.body.text, "base64").toString("utf-8")
+    let text = Buffer.from(req.body.text)
     let key = req.body.key
 
     if (key.length > text.length) {
@@ -149,7 +150,8 @@ export const decryptText = async (req, res, next) => {
     if (req.query.out == "file") {
         const fileName = path.join(__dirname, "./../../../tmp", "ct-" + moment.now().toString())
         fs.writeFileSync(fileName, plainText)
-        await res.status(200).download(fileName)
+        res.attachment(fileName)
+        await res.status(200).sendFile(fileName)
         // fs.unlinkSync(fileName)
         return
     }
@@ -206,5 +208,6 @@ export const decryptFile = async (req, res, next) => {
     
     const fileName = path.join(__dirname, "./../../../tmp", "ct-" + moment.now().toString() + ext)
     fs.writeFileSync(fileName, decrypted)
-    await res.status(200).download(fileName)
+    res.attachment(fileName)
+    await res.status(200).sendFile(fileName)
 }

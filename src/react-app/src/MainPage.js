@@ -14,10 +14,13 @@ export const MainPage = () => {
 
     const handleSelect = (event) => {
         setSelected(event.target.value)
+        setChosen("")
+        setPicked("")
     }
 
     const handleChoose = (event) => {
         setChosen(event.target.value)
+        setPicked("")
     }
 
     const handlePick = (event) => {
@@ -41,8 +44,8 @@ export const MainPage = () => {
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value="vigenere">Standard Vigenere Cipher</MenuItem>
-                            <MenuItem value="ext_vigenere">Extended Vigenere Cipher</MenuItem>
+                            <MenuItem value="vigenere/standard">Standard Vigenere Cipher</MenuItem>
+                            <MenuItem value="vigenere/extended">Extended Vigenere Cipher</MenuItem>
                             <MenuItem value="playfair">Playfair Cipher</MenuItem>
                             <MenuItem value="product">Product Cipher</MenuItem>
                         </Select>
@@ -65,30 +68,50 @@ export const MainPage = () => {
                         </Select>
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 160 }}>
-                        <InputLabel id="select-label-demo3">Input Type</InputLabel>
-                        <Select
-                            labelId="select-label-demo3"
-                            id="demo"
-                            value={picked}
-                            onChange={handlePick}
-                            autoWidth
-                            label="Please Select"
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {selected === "vigenere" && chosen === "encrypt" &&
-                                <React.Fragment>
+                        {(selected === "vigenere/standard" || selected === "product" || selected === "playfair" || (selected === "vigenere/extended" && chosen === "encrypt")) &&
+                            <React.Fragment>
+                                <InputLabel id="select-label-demo3">Input Type</InputLabel>
+                                <Select
+                                    labelId="select-label-demo3"
+                                    id="demo"
+                                    value={picked}
+                                    onChange={handlePick}
+                                    autoWidth
+                                    label="Please Select"
+                                    defaultValue=""
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
                                     <MenuItem value="text">Text</MenuItem>
                                     <MenuItem value="file">File</MenuItem>
-                                </React.Fragment>
-                                
-                            }
-                        </Select>
+                                </Select>
+                            </React.Fragment>
+                        }
+                        {selected === "vigenere/extended" && chosen === "decrypt" &&
+                            <React.Fragment>
+                                <InputLabel id="select-label-demo3">Input Type</InputLabel>
+                                <Select
+                                    labelId="select-label-demo3"
+                                    id="demo"
+                                    value={picked}
+                                    onChange={handlePick}
+                                    autoWidth
+                                    label="Please Select"
+                                    defaultValue=""
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value="file">File</MenuItem>
+                                </Select>
+                            </React.Fragment>
+                        }
                     </FormControl>
                 </Stack>
-                
-                <CipherForm cipher={{}} flavor={{}}/>
+                {selected && chosen && picked &&
+                    <CipherForm cipher={selected} flavor={chosen} input={picked}/>
+                }
             </Stack>
         </div>
     )

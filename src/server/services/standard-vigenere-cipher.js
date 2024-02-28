@@ -13,14 +13,14 @@ const require = createRequire(import.meta.url)
 const vigenere_cipher = require("./../../addons/vigenere-cipher/build/Release/vigenere_cipher.node")
 
 export const encryptText = async (req, res, next) => {
-    if (!req.body.plainText || !req.body.key) {
+    if (!req.body.text || !req.body.key) {
         res.status(400).send({
             message: "No plain text or key supplied!"
         })
         return
     }
 
-    let text = req.body.plainText
+    let text = req.body.text
     let key = req.body.key
 
     if (key.length > text.length) {
@@ -39,9 +39,10 @@ export const encryptText = async (req, res, next) => {
         return
     }
     if (req.query.out == "file") {
-        const fileName = path.join(__dirname, "./../../../tmp", "ct-" + moment.now().toString())
+        const fileName = path.join(__dirname, "./../../../tmp", "ct-" + moment.now().toString() + ".txt")
         fs.writeFileSync(fileName, cipherText)
-        await res.status(200).download(fileName)
+        res.attachment(fileName)
+        await res.status(200).sendFile(fileName)
         // fs.unlinkSync(fileName)
         return
     }
@@ -67,20 +68,20 @@ export const encryptFile = async (req, res, next) => {
     }
     const encrypted = vigenere_cipher.encrypt(toEncrypt, key)
     
-    const fileName = path.join(__dirname, "./../../../tmp", "ct-" + moment.now().toString())
+    const fileName = path.join(__dirname, "./../../../tmp", "ct-" + moment.now().toString() + ".txt")
     fs.writeFileSync(fileName, encrypted)
     await res.status(200).download(fileName)
 }
 
 export const decryptText = async (req, res, next) => {
-    if (!req.body.cipherText || !req.body.key) {
+    if (!req.body.text || !req.body.key) {
         res.status(400).send({
             message: "No cipher text or key supplied!"
         })
         return
     }
 
-    let text = req.body.cipherText
+    let text = req.body.text
     let key = req.body.key
 
     if (key.length > text.length) {
