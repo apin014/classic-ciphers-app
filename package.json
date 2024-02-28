@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon",
-    "start": "(npm --prefix ./src/react-app/ run start) & node src/index"
+    "start": "(npm --prefix ./src/react-app/ run start) & node src/index",
+    "react-setup-install": "npm --prefix ./src/react-app/ install"
   },
   "author": "Muhammad Davin Dzimar",
   "license": "MIT",

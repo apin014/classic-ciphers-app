@@ -17,7 +17,6 @@ const extended_vigenere_cipher = require("./addons/extended-vigenere-cipher/buil
 
 const key = "12345"
 const signature = process.env.SIGNATURE || "SIG"
-// const encryptedSignature = extended_vigenere_cipher.encrypt(Uint8Array.from(signature), Uint8Array.from(signature).length, process.env.SIGNATURE_KEY)
 
 // ENCRYPTION
 // const filePath = path.join(__dirname, "..", "pog.jpeg")

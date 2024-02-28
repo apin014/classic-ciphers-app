@@ -8,6 +8,7 @@ import axios from "axios"
 import moment from "moment";
 import { MuiFileInput } from "mui-file-input"
 import FileSaver from "file-saver"
+import Alert from '@mui/material/Alert';
 import "./Components.css"
 
 export const CipherForm = ({cipher, flavor, input}) => {
@@ -16,6 +17,7 @@ export const CipherForm = ({cipher, flavor, input}) => {
     const [sKey, setSKey] = React.useState("")
     const [nKey, setNKey] = React.useState(null)
     const [display, setDisplay] = React.useState("")
+    const [error, setError] = React.useState("")
 
     const submit = (cipher, flavor, input, out) => {
         let body = {}
@@ -45,7 +47,8 @@ export const CipherForm = ({cipher, flavor, input}) => {
             config.responseType = "blob"
         }
 
-        return axios.post(`http://localhost:3636/${cipher}/${input}`, input === "text" ? body : formData, config).then((resp) => {
+        return axios.post(`http://localhost:3636/${cipher}/${input}`, input === "text" ? body : formData, config)
+        .then((resp) => {
             if (out === "file") {
                 FileSaver.saveAs(resp.data, `baru_${moment.now().toString()}`)
             }
@@ -55,6 +58,11 @@ export const CipherForm = ({cipher, flavor, input}) => {
                     msg += " (base64)"
                 }
                 setDisplay(msg)
+            }
+        })
+        .catch((error) => {
+            if (error.response) {
+                setError("An error occurred, possibly due to invalid input")
             }
         })
     }
@@ -103,7 +111,10 @@ export const CipherForm = ({cipher, flavor, input}) => {
                                         <MuiFileInput
                                             value={file}
                                             onChange={handleFile}
-                                            placeholder={"Insert File Here"} />
+                                            placeholder={"Insert File Here"}
+                                            error={!file}
+                                            helperText={file ? "" : "Do not leave empty"} />
+                                            
                                     </FormControl>
                                 }
                                 <TextField 
@@ -111,7 +122,9 @@ export const CipherForm = ({cipher, flavor, input}) => {
                                     value={sKey} 
                                     onChange={handleSKey}
                                     placeholder="Insert Key Here" 
-                                    style={{width: "25vw"}}/>
+                                    style={{width: "25vw"}}
+                                    error={sKey === ""} 
+                                    helperText={sKey === "" ? "Do not leave empty" : ""}/>
                                 {cipher === "product" &&
                                     <TextField 
                                             type="number" 
@@ -121,7 +134,9 @@ export const CipherForm = ({cipher, flavor, input}) => {
                                             style={{width: "25vw"}}
                                             InputProps={{
                                                 inputProps: { min: 1}
-                                        }}/>
+                                            }}
+                                            error={!nKey} 
+                                            helperText={nKey ? "" : "Do not leave empty"}/>
                                 }
                                 {flavor === "encrypt" && input &&
                                     <Stack direction={"row"} spacing={1} style={{justifyContent: "center"}}>
@@ -164,11 +179,14 @@ export const CipherForm = ({cipher, flavor, input}) => {
                                         </Button>
                                     </Stack>
                                 }
-                                {cipher && input && flavor &&
+                                {cipher && input === "text" && flavor &&
                                     <TextField
                                         value={display}
                                         disabled
                                     />
+                                }
+                                {error !== "" &&
+                                    <Alert severity="error">{error}</Alert>
                                 }
                             </Stack>
                         </React.Fragment>

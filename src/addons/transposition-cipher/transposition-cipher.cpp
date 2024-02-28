@@ -40,12 +40,6 @@ NAN_METHOD(encrypt)
     if ((cpp_plainText.size() % key) != 0) {
         cpp_plainText.append(key - (cpp_plainText.size() % key), 'x');
     }
-
-    // int id = 0;
-    // while (cpp_plainText.size() % key != 0) {
-    //     cpp_plainText.push_back(cpp_plainText.at(id));
-    //     id++;
-    // }
     
     int row, col;
     row = cpp_plainText.size() / key;

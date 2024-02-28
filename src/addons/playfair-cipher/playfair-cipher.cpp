@@ -3,7 +3,6 @@
 #include <map>
 #include "./../include/lookupAlphabet.hpp"
 
-bool isJ(char c) {return c == 'j';}
 bool isNotAlpha(char c) {return !isalpha(c);}
 void createLookup(std::map<char, int> &letterToIndex, std::unordered_map<int, char> &indexToLetter);
 void bigramArrange(std::string &text);
@@ -118,7 +117,6 @@ NAN_METHOD(decrypt)
     cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), ::isspace), cpp_key.end());
     cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), ::isNotAlpha), cpp_key.end());
 
-    // cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), isJ), cpp_key.end());
     std::replace(cpp_key.begin(), cpp_key.end(), 'j', 'i');
 
     std::unordered_map<char, int> exists;
