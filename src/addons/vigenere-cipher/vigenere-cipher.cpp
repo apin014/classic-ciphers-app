@@ -3,8 +3,7 @@
 #include "./../include/lookupAlphabet.hpp"
 
 void createLookup(std::map<char, int> &letterToIndex, std::unordered_map<int, char> &indexToLetter);
-// int convertLetter(char letter, std::unordered_map<char, int> letterToIndex);
-// char convertIndex(int index, std::unordered_map<int, char> indexToLetter);
+bool isNotAlpha(char c) {return !isalpha(c);}
 
 NAN_METHOD(encrypt)
 {
@@ -35,7 +34,9 @@ NAN_METHOD(encrypt)
     std::transform(cpp_key.begin(), cpp_key.end(), cpp_key.begin(), ::tolower);
 
     cpp_plainText.erase(std::remove_if(cpp_plainText.begin(), cpp_plainText.end(), ::isspace), cpp_plainText.end());
+    cpp_plainText.erase(std::remove_if(cpp_plainText.begin(), cpp_plainText.end(), ::isNotAlpha), cpp_plainText.end());
     cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), ::isspace), cpp_key.end());
+    cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), ::isNotAlpha), cpp_key.end());
 
     if (cpp_key.size() > cpp_plainText.size()) {
         Nan::ThrowRangeError("The length of the key must not exceed the length of the plaintext");
@@ -104,7 +105,9 @@ NAN_METHOD(decrypt)
     std::transform(cpp_key_.begin(), cpp_key_.end(), cpp_key_.begin(), ::tolower);
 
     cpp_cipherText_.erase(std::remove_if(cpp_cipherText_.begin(), cpp_cipherText_.end(), ::isspace), cpp_cipherText_.end());
+    cpp_cipherText_.erase(std::remove_if(cpp_cipherText_.begin(), cpp_cipherText_.end(), ::isNotAlpha), cpp_cipherText_.end());
     cpp_key_.erase(std::remove_if(cpp_key_.begin(), cpp_key_.end(), ::isspace), cpp_key_.end());
+    cpp_key_.erase(std::remove_if(cpp_key_.begin(), cpp_key_.end(), ::isNotAlpha), cpp_key_.end());
 
     if (cpp_key_.size() > cpp_cipherText_.size()) {
         Nan::ThrowRangeError("The length of the key must not exceed the length of the ciphertext");

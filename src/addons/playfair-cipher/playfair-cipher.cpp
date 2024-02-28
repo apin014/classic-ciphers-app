@@ -4,7 +4,7 @@
 #include "./../include/lookupAlphabet.hpp"
 
 bool isJ(char c) {return c == 'j';}
-
+bool isNotAlpha(char c) {return !isalpha(c);}
 void createLookup(std::map<char, int> &letterToIndex, std::unordered_map<int, char> &indexToLetter);
 void bigramArrange(std::string &text);
 void matrixOp(int mode, char keyMatrix[5][5], std::string plainText, std::string &cipherText);
@@ -39,10 +39,11 @@ NAN_METHOD(encrypt)
     std::transform(cpp_key.begin(), cpp_key.end(), cpp_key.begin(), ::tolower);
 
     cpp_plainText.erase(std::remove_if(cpp_plainText.begin(), cpp_plainText.end(), ::isspace), cpp_plainText.end());
+    cpp_plainText.erase(std::remove_if(cpp_plainText.begin(), cpp_plainText.end(), ::isNotAlpha), cpp_plainText.end());
     std::replace(cpp_plainText.begin(), cpp_plainText.end(), 'j', 'i');
 
     cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), ::isspace), cpp_key.end());
-    // cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), isJ), cpp_key.end());
+    cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), ::isNotAlpha), cpp_key.end());
     std::replace(cpp_key.begin(), cpp_key.end(), 'j', 'i');
 
     std::unordered_map<char, int> exists;
@@ -113,7 +114,9 @@ NAN_METHOD(decrypt)
     std::transform(cpp_key.begin(), cpp_key.end(), cpp_key.begin(), ::tolower);
 
     cpp_cipherText.erase(std::remove_if(cpp_cipherText.begin(), cpp_cipherText.end(), ::isspace), cpp_cipherText.end());
+    cpp_cipherText.erase(std::remove_if(cpp_cipherText.begin(), cpp_cipherText.end(), ::isNotAlpha), cpp_cipherText.end());
     cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), ::isspace), cpp_key.end());
+    cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), ::isNotAlpha), cpp_key.end());
 
     // cpp_key.erase(std::remove_if(cpp_key.begin(), cpp_key.end(), isJ), cpp_key.end());
     std::replace(cpp_key.begin(), cpp_key.end(), 'j', 'i');
@@ -168,7 +171,11 @@ void bigramArrange(std::string &text)
             break;
         }
         if (*it == *(it+1)) {
-            text.insert(it+1, 'x');
+            if (*it == 'x') {
+                text.insert(it+1, 'z');
+            } else {
+                text.insert(it+1, 'x');
+            }
         }
         it++;
     }

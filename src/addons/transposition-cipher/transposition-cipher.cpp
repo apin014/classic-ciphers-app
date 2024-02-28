@@ -101,7 +101,7 @@ NAN_METHOD(decrypt)
     std::transform(cpp_cipherText.begin(), cpp_cipherText.end(), cpp_cipherText.begin(), ::tolower);
 
     cpp_cipherText.erase(std::remove_if(cpp_cipherText.begin(), cpp_cipherText.end(), ::isspace), cpp_cipherText.end());
-    // cpp_cipherText.erase(std::remove_if(cpp_cipherText.begin(), cpp_cipherText.end(), ::isNotAlpha), cpp_cipherText.end());
+    cpp_cipherText.erase(std::remove_if(cpp_cipherText.begin(), cpp_cipherText.end(), ::isNotAlpha), cpp_cipherText.end());
 
     if (key >= cpp_cipherText.size()) {
         Nan::ThrowRangeError("The key cannot be larger or equal to the length of the cipher text");

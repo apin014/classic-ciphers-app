@@ -339,7 +339,7 @@ endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
 cmd_regen_makefile = cd $(srcdir); /home/duke/Standard/Kuliah/KripKod/classic-ciphers-be/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/duke/.cache/node-gyp/20.11.1" "-Dnode_gyp_dir=/home/duke/Standard/Kuliah/KripKod/classic-ciphers-be/node_modules/node-gyp" "-Dnode_lib_file=/home/duke/.cache/node-gyp/20.11.1/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/duke/Standard/Kuliah/KripKod/classic-ciphers-be/src/addons/vigenere-cipher" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/home/duke/Standard/Kuliah/KripKod/classic-ciphers-be/src/addons/vigenere-cipher/build/config.gypi -I/home/duke/Standard/Kuliah/KripKod/classic-ciphers-be/node_modules/node-gyp/addon.gypi -I/home/duke/.cache/node-gyp/20.11.1/include/node/common.gypi "--toplevel-dir=." binding.gyp
-Makefile: $(srcdir)/../../../node_modules/node-gyp/addon.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../../../.cache/node-gyp/20.11.1/include/node/common.gypi
+Makefile: $(srcdir)/../../../../../../../.cache/node-gyp/20.11.1/include/node/common.gypi $(srcdir)/binding.gyp $(srcdir)/build/config.gypi $(srcdir)/../../../node_modules/node-gyp/addon.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included
