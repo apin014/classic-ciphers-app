@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon",
     "start": "(npm --prefix ./src/react-app/ run start) & node src/index",
-    "react-setup-install": "npm --prefix ./src/react-app/ install"
+    "react-setup-install": "npm --prefix ./src/react-app/ install",
+    "setup-upload-dir": "mkdir tmp"
   },
   "author": "Muhammad Davin Dzimar",
   "license": "MIT",
