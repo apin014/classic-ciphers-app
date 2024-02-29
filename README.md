@@ -1,6 +1,3 @@
-# classic-ciphers-app
-Repositori untuk mencoba beberapa Classic Ciphers dari jaman dahulu kala
-
 # Classic Ciphers Demo App
 ### Program aplikasi sederhana untuk mendemonstrasikan *ciphers* klasik yang pernah digunakan dalam sejarah
 
