@@ -26,6 +26,8 @@ npm run react-setup-install
 ```
 npm run setup-upload-dir
 ```
+Jika ingin memasukkan SIGNATURE dalam enkripsi/dekripsi *Extended Vigenere Cipher* yang ditentukan sendiri, ubah nama fail `.env.example` menjadi `.env` dan masukkan nilai yang ingin diberikan pada variabel SIGNATURE.
+
 <br>
 Akhirnya, jalankan aplikasi dengan memasukkan perintah:
 
