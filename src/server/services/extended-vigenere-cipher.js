@@ -15,7 +15,7 @@ dotenv.config({path: __dirname + "/./../../../.env"})
 
 const require = createRequire(import.meta.url)
 const extended_vigenere_cipher = require("./../../addons/extended-vigenere-cipher/build/Release/extended_vigenere_cipher.node")
-const signature = process.env.signature || "SIG"
+const signature = process.env.SIGNATURE || "SIG"
 
 export const encryptText = async (req, res, next) => {
     if (!req.body.text || !req.body.key) {
